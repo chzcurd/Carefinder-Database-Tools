@@ -1,23 +1,25 @@
 import { XMLParser } from "fast-xml-parser";
 import fs from "fs";
 
+//Read in XML file
 const data = fs.readFileSync("ushospitals.xml", "utf8");
-//console.log(data);
 
+//Parse XML file
 const options = {
+  //Why is data stored in attributes :(
+  //Makes my code longer to parse it all
   ignoreAttributes: false,
 };
 const theData = new XMLParser(options).parse(data);
-//console.log(theData);
 
-console.log(theData.response.row.row);
+//Pull out array of hospitals from the parsed xml
 const inputDataArr = theData.response.row.row;
 
+//Map the hospital data that is parsed to the proper format
 const mappedDataArr = [];
-
 inputDataArr.map((x) => {
-  //console.log(hosptial.hospital_name);
   const mappedData = {
+    //data that can be nicely mapped
     provider_id: x.provider_id,
     hospital_name: x.hospital_name,
     address: x.address,
@@ -25,19 +27,21 @@ inputDataArr.map((x) => {
     state: x.state,
     zip_code: x.zip_code,
     county_name: x.county_name,
-    phone_number: x.phone_number["@_phone_number"], //{ '@_phone_number': '9072624404' },
     hospital_type: x.hospital_type,
     hospital_ownership: x.hospital_ownership,
     emergency_services: x.emergency_services,
+
+    //phone number is stored as { '@_phone_number': '9072624404' } for some reason
+    phone_number: x.phone_number["@_phone_number"],
+
+    //Pull location data from location object
     latitude: x.location["@_latitude"],
     longitude: x.location["@_longitude"],
-    human_address: x.location["@_human_address"],
-    /*location: {
-      '@_human_address': '{"address":"250 HOSPITAL PLACE","city":"SOLDOTNA","state":"AK","zip":"99669"}',
-      '@_latitude': '60.49373236400049',
-      '@_longitude': '-151.07808299499973',
-      '@_needs_recoding': 'false'
-    },
+    //TODO figure out if this should be parsed to json or left as a string
+    human_address: JSON.parse(x.location["@_human_address"]),
+
+    //Unmapped data, may or may not be needed
+    /*
     '@__id': '100',
     '@__uuid': 'EA083860-B5BC-42D1-8F1A-3CFFA29C0D54',
     '@__position': '100',
@@ -45,8 +49,10 @@ inputDataArr.map((x) => {
     */
   };
 
-  //console.log(mappedData);
+  //add mapped object to return array
   mappedDataArr.push(mappedData);
 });
 
-console.log(mappedDataArr);
+//Stringify JSON and write to file
+const hospitalJSON = JSON.stringify(mappedDataArr);
+fs.writeFileSync("ushospitals.json", hospitalJSON);
