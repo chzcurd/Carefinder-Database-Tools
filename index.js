@@ -37,8 +37,8 @@ inputDataArr.map((x) => {
     //Pull location data from location object
     latitude: x.location["@_latitude"],
     longitude: x.location["@_longitude"],
-    //TODO figure out if this should be parsed to json or left as a string
-    human_address: JSON.parse(x.location["@_human_address"]),
+    //TODO figure out if this is needed and if it should be parsed to json or left as a string
+    //human_address: JSON.parse(x.location["@_human_address"]),
 
     //Unmapped data, may or may not be needed
     /*
