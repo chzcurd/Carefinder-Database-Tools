@@ -37,16 +37,6 @@ inputDataArr.map((x) => {
     //Pull location data from location object
     latitude: x.location["@_latitude"],
     longitude: x.location["@_longitude"],
-    //TODO figure out if this is needed and if it should be parsed to json or left as a string
-    //human_address: JSON.parse(x.location["@_human_address"]),
-
-    //Unmapped data, may or may not be needed
-    /*
-    '@__id': '100',
-    '@__uuid': 'EA083860-B5BC-42D1-8F1A-3CFFA29C0D54',
-    '@__position': '100',
-    '@__address': 'http://data.medicare.gov/resource/xubh-q36u/100'
-    */
   };
 
   //add mapped object to return array
