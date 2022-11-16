@@ -1,14 +1,14 @@
 {
   "name": "database-tools",
   "version": "1.0.0",
-  "description": "",
+  "description": "Converts XML Hospital Data to JSON for use in MongoDB",
   "main": "convertData.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "convert": "node convertData.js"
   },
-  "author": "",
+  "author": "Josh Osmanski",
   "license": "ISC",
   "dependencies": {
     "fast-xml-parser": "^4.0.11"
