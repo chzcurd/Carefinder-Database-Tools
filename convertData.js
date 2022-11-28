@@ -18,12 +18,12 @@ const inputDataArr = theData.response.row.row;
 //Map the hospital data that is parsed to the proper format
 const mappedDataArr = inputDataArr.map((x) => ({
   //data that can be nicely mapped
-  provider_id: x.provider_id,
+  provider_id: x.provider_id.toString(),
   hospital_name: x.hospital_name,
   address: x.address,
   city: x.city,
   state: x.state,
-  zip_code: x.zip_code,
+  zip_code: x.zip_code.toString(),
   county_name: x.county_name,
   hospital_type: x.hospital_type,
   hospital_ownership: x.hospital_ownership,
