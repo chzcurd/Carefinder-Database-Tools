@@ -35,6 +35,12 @@ const mappedDataArr = inputDataArr.map((x) => ({
   //Pull location data from location object
   latitude: x.location["@_latitude"],
   longitude: x.location["@_longitude"],
+
+  //mongodb searchable location cords by distance
+  loc: [
+    parseFloat(x.location["@_longitude"]),
+    parseFloat(x.location["@_latitude"]),
+  ],
 }));
 
 //Stringify JSON and write to file
